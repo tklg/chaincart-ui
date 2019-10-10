@@ -1,0 +1,78 @@
+@import "src/assets/vars";
+
+.storefronts {
+  nav {
+    margin: 20px 0 14px 0;
+    padding: 0 14px;
+
+    h1 {
+      color: $text-dark-2;
+      line-height: 50px;
+      vertical-align: middle;
+    }
+    .btn {
+      vertical-align: middle;
+    }
+  }
+  .items {
+    padding: 0 14px;
+    margin: 14px 0;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+
+    .storefront {
+      cursor: pointer;
+      padding: 0 14px 20px 14px;
+      border: 1px solid $black-4;
+      transition: background .15s $transition,
+                  border-color .15s $transition;
+
+      &:hover {
+        background: adjust-color($accent-1, $alpha: -0.9);
+        border-color: $accent-1;
+      }
+      h2 {
+        padding: 14px 0;
+        color: $text-dark-1;
+        font-weight: 500;
+      }
+      .stats {
+        height: 50px;
+
+        .stat {
+          display: inline-block;
+          height: 50px;
+          margin: 5px 0;
+          width: 100px;
+          border-right: 1px solid $black-5;
+
+          &:last-of-type {
+            border-right: none;
+          }
+          & + .stat {
+            margin-left: 14px;
+          }
+
+          span {
+            display: inline-block;
+            width: 100%;
+            height: 20px;
+
+            &.stat-key {
+              font-weight: 500;
+              color: $text-dark-3;
+            }
+            &.stat-value {
+              font-size: 1.7em;
+              color: $text-dark-1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
