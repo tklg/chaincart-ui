@@ -1,5 +1,8 @@
 @import "src/assets/vars";
-@import './buttons';
+@import "src/assets/buttons";
+@import "src/assets/tiles";
+@import "src/assets/table";
+// @import './buttons';
 
 html,
 body,
@@ -21,12 +24,12 @@ body,
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  background: $white-4;
+  width: 8px;
+  background: $accent-1-light;
 }
 ::-webkit-scrollbar-thumb {
-  width: 6px;
-  background: $white-3;
+  width: 8px;
+  background: adjust-color($accent-1, $alpha: -0.6);
 }
 
 ::selection {
@@ -55,7 +58,10 @@ h2 {
 
 .flex-container {
   display: flex;
-
+  & > * {
+    display: inline-block;
+    flex: none;
+  }
   &.flex-center {
     align-items: center;
     justify-content: center;
@@ -78,10 +84,6 @@ h2 {
       display: inline-flex;
     }
   }
-  .flex-none {
-    display: inline-block;
-    flex: none;
-  }
 }
 
 a:not(.btn) {
@@ -99,6 +101,17 @@ a:not(.btn) {
 }
 
 .width-limit {
-  max-width: 1200px;
+  max-width: $large-break;
+  height: 100%;
   margin: 0 auto;
+}
+
+svg[role=presentation] {
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
+
+  path {
+    fill: $text-dark-3;
+  }
 }

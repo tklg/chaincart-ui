@@ -1,0 +1,23 @@
+@import "src/assets/vars";
+@import "src/assets/nav";
+
+.storefront {
+  height: calc(100% - 50px);
+
+  .left-nav {
+    @include vertical-nav;
+    @include width-limit-nav;
+
+    h1 {
+      padding-left: 0;
+
+      span {
+        vertical-align: middle;
+      }
+    }
+  }
+  .content {
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}

@@ -5,7 +5,7 @@
   position: relative;
   height: 36px;
   line-height: 36px;
-  padding: 0 14px;
+  padding: 0 24px;
   margin: 7px 0;
   background: $accent-1;
   color: white;
@@ -41,13 +41,15 @@
     background: transparent;
     color: $text-dark-1;
     box-shadow: none;
+    padding: 0 14px;
 
     &:hover {
       background: adjust-color($accent-1, $alpha: -0.8);
       color: $text-dark-1;
     }
 
-    &:active {
+    &:active,
+    &.active {
       background: adjust-color($accent-1, $alpha: -0.6);
     }
   }

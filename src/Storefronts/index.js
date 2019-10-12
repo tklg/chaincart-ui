@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { money } from '../util'
 import './index.scss'
 
-const stores = [{
-  name: 'Test', items: 2, sales: 5000, revenue: 5000
-}, {
-  name: 'Test 2', items: 2, sales: 50, revenue: 50
-}]
-
-export default class Storefronts extends Component {
+class Storefronts extends Component {
   constructor () {
     super()
     this.renderStorefront = this.renderStorefront.bind(this)
@@ -17,7 +12,7 @@ export default class Storefronts extends Component {
 
   renderStorefront (data, i) {
     return (
-      <Link key={i} className='storefront' to={`store/${data.id}`}>
+      <Link key={i} className='tile hover' to={`store/${data.id}/dashboard`}>
         <h2 className='flex'>{data.name}</h2>
         <div className='stats'>
           <div className='stat'>
@@ -39,17 +34,25 @@ export default class Storefronts extends Component {
 
   render () {
     return (
-      <div className='storefronts'>
+      <div className='storefronts flex'>
         <div className='width-limit'>
           <nav className='flex-container'>
             <h1 className='flex'>Your storefronts</h1>
             <button className='btn'>Create</button>
           </nav>
-          <div className='items'>
-            {stores.map(this.renderStorefront)}
+          <div className='tiles'>
+            {this.props.stores.map(this.renderStorefront)}
           </div>
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = ({ storefronts }, props) => {
+  return {
+    stores: storefronts.stores
+  }
+}
+
+export default connect(mapStateToProps)(Storefronts)

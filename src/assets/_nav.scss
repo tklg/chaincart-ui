@@ -1,0 +1,63 @@
+@import "src/assets/vars";
+
+@mixin section-nav {
+  margin: 20px 0 14px 0;
+  padding: 0 28px;
+
+  h1 {
+    color: $text-dark-2;
+    line-height: 50px;
+    vertical-align: middle;
+  }
+  .btn {
+    vertical-align: middle;
+  }
+  a {
+    color: $text-dark-1;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 14px;
+    text-align: center;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+$vnav-width: 300px;
+
+@mixin vertical-nav {
+  margin: 28px 0 14px 0;
+  padding: 0 14px;
+  display: inline-flex;
+  width: $vnav-width;
+  overflow: hidden;
+  overflow-y: auto;
+
+  a {
+    text-decoration: none !important;
+  }
+  .nav-header {
+    height: 50px;
+  }
+  h1 {
+    color: $text-dark-1;
+    padding: 0 14px;
+    // margin: 0 0 14px 0;
+    line-height: 50px;
+  }
+  .btn {
+    margin: 0;
+    line-height: 40px;
+    height: 40px;
+  }
+}
+
+@mixin width-limit-nav {
+  @media screen and (min-width: #{$large-break + ($vnav-width * 2)}) {
+    margin-left: -$vnav-width;
+    padding: 0 0 0 14px;
+  }
+}

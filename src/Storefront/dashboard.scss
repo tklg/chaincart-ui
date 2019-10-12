@@ -1,0 +1,60 @@
+@import "src/assets/vars";
+@import "src/assets/nav";
+
+.dashboard {
+  padding: 0 0 100px 0;
+  height: 100%;
+
+  h1 {
+    margin: 28px 0 7px 0;
+    padding: 0 28px;
+    height: 50px;
+    line-height: 50px;
+  }
+  & > nav {
+    margin: 28px 0 0 0;
+    padding: 0 14px 0 28px;
+    line-height: 50px;
+    height: 50px;
+
+    h1 {
+      padding: 0;
+      margin: 0;
+      height: 50px;
+      line-height: 50px;
+    }
+    .btn {
+      margin: 5px 0;
+    }
+  }
+  .tiles {
+    grid-template-columns: repeat(3, 1fr);
+
+    .tile {
+      min-height: 80px;
+      text-align: center;
+      position: relative;
+
+      span {
+        display: block;
+
+        &.key {
+          font-weight: 500;
+          font-size: 1rem;
+          color: $text-dark-3;
+        }
+        &.value {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+  .graph {
+    padding: 0 28px;
+
+    .graph-content {
+      background: $accent-1-light;
+      min-height: 120px;
+    }
+  }
+}
