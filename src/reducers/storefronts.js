@@ -13,12 +13,12 @@ const defaultState = {
   },
   customization: {
     a: {
-      primary: 'black',
-      primaryText: 'white',
-      secondary: 'gray',
-      secondaryText: 'white',
-      accent: 'blue',
-      accentText: 'red'
+      primary: '#af00ff',
+      primaryText: '#ffffff',
+      secondary: '#dddddd',
+      secondaryText: '#555555',
+      accent: '#ff5722',
+      accentText: '#ffffff'
     }
   }
 }

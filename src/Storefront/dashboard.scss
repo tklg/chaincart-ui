@@ -2,7 +2,9 @@
 @import "src/assets/nav";
 
 .dashboard {
-  padding: 0 0 100px 0;
+  overflow: hidden;
+  overflow-y: auto;
+  padding: 0 0 60px 0;
   height: 100%;
 
   h1 {
@@ -28,8 +30,6 @@
     }
   }
   .tiles {
-    grid-template-columns: repeat(3, 1fr);
-
     .tile {
       min-height: 80px;
       text-align: center;
@@ -55,6 +55,83 @@
     .graph-content {
       background: $accent-1-light;
       min-height: 120px;
+    }
+  }
+
+  &.customization {
+    .preview {
+      margin: 0 28px;
+      padding: 0 0 10px 0;
+      overflow: hidden;
+      user-select: none;
+
+      header {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        font-size: 0.9em;
+      }
+      main {
+        padding: 10px;
+
+        table {
+          font-size: 0.7em;
+          padding: 0;
+
+          th {
+            height: 20px;
+            line-height: 20px;
+            border-top: none;
+            padding: 0 10px;
+          }
+          td {
+            height: 14px;
+            line-height: 14px;
+            padding: 0 10px;
+
+            input {
+              background: $white-3;
+              width: 50px;
+              line-height: initial;
+              height: initial;
+            }
+            button {
+              background: transparent;
+              border: none;
+              outline: none;
+              cursor: pointer;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+          .remove {
+            color: $red;
+          }
+        }
+      }
+      footer {
+        padding: 0 10px;
+        height: 40px;
+        line-height: 40px;
+
+        .total {
+          text-align: right;
+          padding: 0 20px;
+          font-size: 0.8em;
+        }
+        .btn {
+          height: 30px;
+          line-height: 30px;
+          margin: 5px 0;
+          font-size: 0.9em;
+        }
+      }
+    }
+    .texteditor {
+      margin: 0 28px;
+      width: calc(100% - 56px);
     }
   }
 }

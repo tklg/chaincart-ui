@@ -1,0 +1,42 @@
+@import "src/assets/vars";
+
+.colorpicker {
+  .stack {
+    text-align: left;
+    height: 50px;
+    line-height: 20px;
+    padding: 0 14px 0 0;
+    color: $text-dark-2;
+  }
+  .swatch {
+    height: 50px;
+    width: 50px;
+    background: red;
+    cursor: pointer;
+  }
+  .picker {
+    margin: 10px 0 0 0;
+    position: relative;
+
+    .select {
+      height: 8px;
+      width: 100%;
+
+      &.hue {
+        background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 255, 0) 17%, rgb(0, 255, 0) 33%, rgb(0, 255, 255) 50%, rgb(0, 0, 255) 67%, rgb(255, 0, 255) 83%, rgb(255, 0, 0) 100%);
+      }
+    }
+    .thumb {
+      position: absolute;
+      top: -3px;
+      margin-left: -7px;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer !important;
+      pointer-events: none;
+      box-shadow: rgba(0, 0, 0, 0.37) 0px 1px 4px 0px
+    }
+  }
+}

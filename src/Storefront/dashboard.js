@@ -8,7 +8,7 @@ class Dashboard extends Component {
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
-        <div className='tiles'>
+        <div className='tiles tiles-3'>
           <div className='tile flex-container flex-center'>
             <span className='key'>Sales</span>
             <span className='value'>0</span>

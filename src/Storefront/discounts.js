@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { money } from '../util'
 import './dashboard.scss'
 
-class Customization extends Component {
+class Discounts extends Component {
   render () {
     return (
       <div className='dashboard discounts'>
@@ -20,4 +20,4 @@ const mapStateToProps = ({ storefronts }, props) => {
   }
 }
 
-export default connect(mapStateToProps)(Customization)
+export default connect(mapStateToProps)(Discounts)

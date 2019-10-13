@@ -1,0 +1,26 @@
+@import "src/assets/vars";
+
+.texteditor {
+  max-height: 400px;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  border: 1px solid $black-4;
+
+  .lines {
+    min-width: 30px;
+    white-space: pre;
+    border-right: $accent-1;
+    background: $accent-1-medium;
+    text-align: right;
+    padding: 10px 4px 10px 0;
+    font-family: monospace;
+    font-size: 1em;
+    color: $text-dark-2;
+    overflow: hidden;
+  }
+  textarea {
+    overflow: hidden;
+    border: none;
+  }
+}
