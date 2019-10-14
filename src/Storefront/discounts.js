@@ -4,10 +4,37 @@ import { money } from '../util'
 import './dashboard.scss'
 
 class Discounts extends Component {
+  renderDiscountRow (o, i, a) {
+    const amount = o.type === 'percent' ? `${o.amount}% off` : `${money.fmt(o.amount)} off`
+    return (
+      <tr key={i}>
+        <td>{o.code}</td>
+        <td>{amount}</td>
+        <td>{o.uses === -1 ? '' : o.uses}</td>
+        <td>{o.exemptProducts.length}</td>
+      </tr>
+    )
+  }
   render () {
     return (
       <div className='dashboard discounts'>
-        <h1>Discounts</h1>
+        <nav className='flex-container'>
+          <h1 className='flex'>Discounts</h1>
+          <button className='btn'>Create discount</button>
+        </nav>
+        <table cellSpacing='0' cellPadding='0' className='hover'>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Amount</th>
+              <th>Uses remaining</th>
+              <th>Exempt products</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.discounts.map(this.renderDiscountRow)}
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -16,7 +43,7 @@ class Discounts extends Component {
 const mapStateToProps = ({ storefronts }, props) => {
   return {
     store: storefronts.stores.find(x => x.id === props.id),
-    products: storefronts.products[props.id]
+    discounts: storefronts.discounts[props.id]
   }
 }
 

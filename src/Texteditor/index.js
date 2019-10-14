@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { react, color, timers } from '../util'
+import { timers } from '../util'
 import './index.scss'
 
 export default function (props) {
@@ -7,7 +7,7 @@ export default function (props) {
   const [content, setContent] = useState('')
   useEffect(() => {
     if (content.length && props.onFinish) onFinish(content)
-  }, [content])
+  })
   return (
     <div className='texteditor'>
       <div className='editor-scroll flex-container'>

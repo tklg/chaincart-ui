@@ -4,6 +4,8 @@ import './index.scss'
 
 export default function (props) {
   const barRef = useRef(null)
+  const onFinish = timers.debounce(props.onFinish, 1000)
+  const { onChange } = props
 
   const [isFocused, setIsFocused] = useState(false)
   const [hsl, setHSL] = useState(color.hex2hsl(props.color))
@@ -13,10 +15,10 @@ export default function (props) {
       setHSL(color.hex2hsl(hex))
       return
     }
-    if (props.onChange) props.onChange(hex)
-    if (props.onFinish) onFinish(hex)
+    if (onChange) onChange(hex)
+    if (onFinish) onFinish(hex)
     if (!hex.length) setHex('#')
-  }, [hex])
+  }, [hex, isFocused, onFinish, onChange])
 
   const onDrag = timers.throttle(function (e, i) {
     const width = barRef.current ? barRef.current.offsetWidth : 0
@@ -30,8 +32,6 @@ export default function (props) {
     setHSL(t)
     setHex(color.hsl2hex(t))
   }, 10)
-
-  const onFinish = timers.debounce(props.onFinish, 1000)
 
   function onMouseDown (e, i) {
     e.preventDefault()
