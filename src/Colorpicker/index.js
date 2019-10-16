@@ -50,7 +50,7 @@ export default function (props) {
         <div className='stack flex'>
           <span>{props.title}</span>
           <input
-            placeholder={props.placeholder || ''}
+            placeholder='#000000'
             value={hex}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}

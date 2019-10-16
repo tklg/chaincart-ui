@@ -5,17 +5,18 @@ import './dashboard.scss'
 
 class Dashboard extends Component {
   render () {
+    const { store } = this.props
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
         <div className='tiles tiles-3'>
           <div className='tile flex-container flex-center'>
             <span className='key'>Sales</span>
-            <span className='value'>0</span>
+            <span className='value'>{store.sales}</span>
           </div>
           <div className='tile flex-container flex-center'>
             <span className='key'>Revenue</span>
-            <span className='value'>{money.fmt(this.props.store.sales)}</span>
+            <span className='value'>{money.fmt(store.revenue)}</span>
           </div>
           <div className='tile flex-container flex-center'>
             <span className='key'>Customers</span>

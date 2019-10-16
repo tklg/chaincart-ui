@@ -25,6 +25,10 @@
       height: 50px;
       line-height: 50px;
     }
+    input {
+      width: auto;
+      margin: 10px 14px;
+    }
     .btn {
       margin: 5px 0;
     }
@@ -57,7 +61,24 @@
       min-height: 120px;
     }
   }
-
+  &.products {
+    .modal {
+      textarea {
+        font-family: inherit;
+        font-size: 0.9em;
+      }
+      header {
+        .product-name {
+          margin-right: 14px;
+          // color: $black-1;
+        }
+        .product-sku {
+          color: $black-3;
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
   &.customization {
     .preview {
       margin: 0 28px;
@@ -132,6 +153,77 @@
     .texteditor {
       margin: 0 28px;
       width: calc(100% - 56px);
+    }
+  }
+  &.settings {
+    .cart-type-preview {
+      float: left;
+      height: 100px;
+      width: 130px;
+      border: 1px solid $black-4;
+      padding: 6px;
+
+      & ~ .cart-type-preview {
+        margin-left: 14px;
+      }
+
+      .window {
+        position: relative;
+        background: #ddd;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+
+        .bars {
+          height: 6px;
+          width: 80%;
+          background: $black-5;
+          margin: 5px 15% 5px 5%;
+          position: relative;
+
+          &:before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 60%;
+            background: $black-5;
+            left: 0;
+            top: 9px;
+          }
+          &:after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 80%;
+            background: $black-5;
+            left: 0;
+            top: 18px;
+          }
+        }
+        header {
+          height: 8px;
+          width: 100%;
+          background: $black-4;
+        }
+        .minimodal {
+          height: 50%;
+          width: 60%;
+          background: white;
+          box-shadow: $shadow-1;
+        }
+        .minidrawer {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 40%;
+          height: 100%;
+          background: white;
+          box-shadow: $shadow-1;
+        }
+      }
+    }
+    .radio:checked + .cart-type-preview {
+      background: $accent-1;
     }
   }
 }

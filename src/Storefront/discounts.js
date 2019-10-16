@@ -12,6 +12,7 @@ class Discounts extends Component {
         <td>{amount}</td>
         <td>{o.uses === -1 ? '' : o.uses}</td>
         <td>{o.exemptProducts.length}</td>
+        <td>{o.expired ? 'Yes' : ''}</td>
       </tr>
     )
   }
@@ -20,6 +21,7 @@ class Discounts extends Component {
       <div className='dashboard discounts'>
         <nav className='flex-container'>
           <h1 className='flex'>Discounts</h1>
+          <input placeholder='Search' />
           <button className='btn'>Create discount</button>
         </nav>
         <table cellSpacing='0' cellPadding='0' className='hover'>
@@ -27,8 +29,9 @@ class Discounts extends Component {
             <tr>
               <th>Code</th>
               <th>Amount</th>
-              <th>Uses remaining</th>
+              <th>Remaining</th>
               <th>Exempt products</th>
+              <th>Expired</th>
             </tr>
           </thead>
           <tbody>

@@ -1,19 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import ErrorBoundary from './ErrorBoundary'
+import { createBrowserHistory } from 'history'
+import { routerMiddleware, ConnectedRouter as Router } from 'connected-react-router'
 import reducers from './reducers'
 import App from './App'
 
+const history = createBrowserHistory()
+
 const store = createStore(
-  reducers,
-  applyMiddleware(thunk)
+  reducers(history),
+  compose(
+    applyMiddleware(
+      thunk,
+      routerMiddleware(history)
+    )
+  )
 )
 
 ReactDOM.render(<ErrorBoundary>
   <Provider store={store}>
-    <App />
+    <Router basepath='/' history={history} >
+      <App />
+    </Router>
   </Provider>
 </ErrorBoundary>, document.getElementById('app'))

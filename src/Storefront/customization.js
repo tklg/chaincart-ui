@@ -54,20 +54,20 @@ class Customization extends Component {
 
         <h1>Primary colors</h1>
         <div className='tiles tiles-2'>
-          <Colorpicker className='tile' title='Background' placeholder='#000000' color={primary} />
-          <Colorpicker className='tile' title='Text' placeholder='#000000' color={primaryText} />
+          <Colorpicker className='tile' title='Background' color={primary} />
+          <Colorpicker className='tile' title='Text' color={primaryText} />
         </div>
 
         <h1>Secondary colors</h1>
         <div className='tiles tiles-2'>
-          <Colorpicker className='tile' title='Background' placeholder='#000000' color={secondary} />
-          <Colorpicker className='tile' title='Text' placeholder='#000000' color={secondaryText} />
+          <Colorpicker className='tile' title='Background' color={secondary} />
+          <Colorpicker className='tile' title='Text' color={secondaryText} />
         </div>
 
         <h1>Accent colors</h1>
         <div className='tiles tiles-2'>
-          <Colorpicker className='tile' title='Background' placeholder='#000000' color={accent} />
-          <Colorpicker className='tile' title='Text' placeholder='#000000' color={accentText} />
+          <Colorpicker className='tile' title='Background' color={accent} />
+          <Colorpicker className='tile' title='Text' color={accentText} />
         </div>
 
         <h1>Custom CSS</h1>

@@ -10,7 +10,7 @@ class Orders extends Component {
         <td>{o.customer.name}</td>
         <td>{money.fmt(o.price)}</td>
         <td>{o.items.length}</td>
-        <td>{o.discount ? o.discount.code : ''}</td>
+        <td>delivered</td>
         <td>{o.createdAt}</td>
       </tr>
     )
@@ -25,7 +25,7 @@ class Orders extends Component {
               <th>Customer</th>
               <th>Price</th>
               <th># Items</th>
-              <th>Discount</th>
+              <th>Status</th>
               <th>Date</th>
             </tr>
           </thead>

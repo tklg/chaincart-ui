@@ -19,10 +19,6 @@ const pages = [{ name: 'Dashboard', component: Dashboard },
   { name: 'Settings', component: Settings }]
 
 class Storefront extends Component {
-  constructor () {
-    super()
-  }
-
   render () {
     return (
       <div className='storefront flex'>

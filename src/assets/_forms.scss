@@ -25,3 +25,35 @@ textarea {
   font-family: monospace;
   padding: 10px;
 }
+input.radio[type=radio] {
+  display: none;
+
+  &:selected + label {
+
+  }
+}
+.rows {
+  display: table;
+  width: 100%;
+  padding: 0 14px;
+
+  .row {
+    display: table-row;
+    min-height: 54px;
+    line-height: 40px;
+    width: 100%;
+
+    & > * {
+      padding: 0 14px 14px 14px;
+      display: table-cell;
+      vertical-align: top;
+    }
+    .key {
+      color: $text-dark-2;
+      font-size: 1.1em;
+    }
+    .value {
+      width: 99%;
+    }
+  }
+}
