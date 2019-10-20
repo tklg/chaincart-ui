@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { money } from '../util'
 import { Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
-import ConfigModal from '../Modal/ConfigModal'
+import Modal from '../Modal'
+import { Checkbox } from '../Input'
 import './dashboard.scss'
 
 class Products extends Component {
@@ -17,7 +18,7 @@ class Products extends Component {
         <td>{product.name}</td>
         <td>{product.description}</td>
         <td>{money.fmt(product.price)}</td>
-        <td>{product.available}</td>
+        <td>{product.infinite ? 'Infinite' : product.available}</td>
         <td>{product.sku}</td>
       </tr>
     )
@@ -48,9 +49,10 @@ class Products extends Component {
         <Route path='/store/*/products/:id' children={({ match }) => {
           const product = match ? this.props.products.find(x => x.id === match.params.id) : null
           return (
-            <ConfigModal
+            <Modal
               active={match !== null}
               onClose={e => this.props.dispatch(push('../products'))}
+              onSave={data => console.log(data)}
               data={product ? {
                 id: product.id,
                 header: {
@@ -60,6 +62,7 @@ class Products extends Component {
                 footer: {},
                 values: [{
                   name: 'Product name',
+                  key: 'name',
                   value: product.name,
                   component: {
                     type: 'input',
@@ -69,6 +72,7 @@ class Products extends Component {
                   }
                 }, {
                   name: 'Description',
+                  key: 'description',
                   value: product.description,
                   component: {
                     type: 'textarea',
@@ -78,6 +82,7 @@ class Products extends Component {
                   }
                 }, {
                   name: 'Price',
+                  key: 'price',
                   value: product.price,
                   convert: {
                     from (x) { return x * 100 },
@@ -92,7 +97,8 @@ class Products extends Component {
                   }
                 }, {
                   name: 'Stock',
-                  value: product.stock,
+                  key: 'available',
+                  value: product.available,
                   component: {
                     type: 'input',
                     props: {
@@ -100,8 +106,18 @@ class Products extends Component {
                       placeholder: '0'
                     }
                   }
+                }, {
+                  name: 'Infinite?',
+                  key: 'infinite',
+                  value: product.infinite,
+                  component: {
+                    type: Checkbox,
+                    props: {
+                      id: 'product-infinite-' + product.id
+                    }
+                  }
                 }]
-              } : { values: [] }} />
+              } : null} />
           )
         }} />
       </div>

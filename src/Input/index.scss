@@ -1,0 +1,123 @@
+@import 'src/assets/vars';
+
+.select-container {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  cursor: pointer;
+
+  .select-current {
+    padding: 0 14px;
+    border-bottom: 1px solid $black-4;
+
+    span {
+      display: inline-block;
+
+      &.icon {
+        height: 40px;
+        width: 40px;
+        padding: 5px;
+
+        svg {
+          height: 30px;
+          width: 30px;
+
+          path {
+            fill: $text-dark-2;
+          }
+        }
+      }
+    }
+  }
+  .select-items {
+    top: -10px;
+    width: 100%;
+    position: absolute;
+    background: $background-2;
+    list-style: none;
+    margin: 0;
+    z-index: 1;
+    max-height: 0;
+    pointer-events: none;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: none;
+    opacity: 0;
+    color: $text-light-1;
+    transition: .15s max-height $transition,
+                .15s padding $transition,
+                .15s box-shadow $transition,
+                .15s opacity $transition,
+                .1s color $transition;
+
+    li {
+      display: inline-block;
+      width: 100%;
+      padding: 0 14px;
+      border-bottom: 1px solid $black-5;
+
+      &:last-of-type {
+        border: none;
+      }
+      &:hover {
+        background: $accent-1-light;
+      }
+    }
+  }
+  &.active .select-items {
+    color: $text-dark-1;
+    opacity: 1;
+    box-shadow: $shadow-1;
+    padding: 10px 0;
+    overflow: auto;
+    max-height: calc(100vh / 2);
+    pointer-events: all;
+  }
+}
+
+.checkbox-container {
+  height: 40px;
+  line-height: 40px;
+
+  input[type=checkbox] {
+    display: none;
+  }
+  &.default {
+    input[type=checkbox] + label {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      background: transparent;
+      border: 2px solid $black-3;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 8px 0;
+      transition: border-color .15s $transition,
+                  background .15s $transition;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 1px;
+        width: 12px;
+        height: 6px;
+        border: solid 2px transparent;
+        border-right: none;
+        border-top: none;
+        transform: translate(2px, 2px) rotate(-45deg);
+        transition: border-color .15s $transition;
+      }
+    }
+    input[type=checkbox]:checked + label {
+      background: $accent-1;
+      border-color: $accent-1;
+
+      &:after {
+        border-color: white;
+      }
+    }
+  }
+}

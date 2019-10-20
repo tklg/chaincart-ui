@@ -18,7 +18,8 @@ export default function (props) {
     if (onChange) onChange(hex)
     if (onFinish) onFinish(hex)
     if (!hex.length) setHex('#')
-  }, [hex, isFocused, onFinish, onChange])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hex])
 
   const onDrag = timers.throttle(function (e, i) {
     const width = barRef.current ? barRef.current.offsetWidth : 0
@@ -30,7 +31,7 @@ export default function (props) {
     t[i] = dist / width
     t[i] = Math.max(0, Math.min(t[i], 1))
     setHSL(t)
-    setHex(color.hsl2hex(t))
+    setHex(color.hsl2hex(t).toUpperCase())
   }, 10)
 
   function onMouseDown (e, i) {

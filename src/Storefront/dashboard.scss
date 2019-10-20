@@ -62,22 +62,7 @@
     }
   }
   &.products {
-    .modal {
-      textarea {
-        font-family: inherit;
-        font-size: 0.9em;
-      }
-      header {
-        .product-name {
-          margin-right: 14px;
-          // color: $black-1;
-        }
-        .product-sku {
-          color: $black-3;
-          font-size: 0.8em;
-        }
-      }
-    }
+
   }
   &.customization {
     .preview {
@@ -85,6 +70,8 @@
       padding: 0 0 10px 0;
       overflow: hidden;
       user-select: none;
+      border: none;
+      width: calc(100% - 56px);
 
       header {
         height: 40px;
@@ -156,12 +143,21 @@
     }
   }
   &.settings {
+    .buttons {
+      text-align: right;
+
+      .btn {
+        margin: 2px 14px;
+        padding: 0 28px;
+      }
+    }
     .cart-type-preview {
       float: left;
       height: 100px;
       width: 130px;
       border: 1px solid $black-4;
       padding: 6px;
+      cursor: pointer;
 
       & ~ .cart-type-preview {
         margin-left: 14px;

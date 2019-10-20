@@ -8,11 +8,27 @@ import Texteditor from '../Texteditor'
 import './dashboard.scss'
 
 class Customization extends Component {
+  constructor () {
+    super()
+    this.state = null
+    this.update = this.update.bind(this)
+  }
+  componentDidMount () {
+    this.setState(this.props.colors)
+  }
+  update (key, value) {
+    this.setState({
+      [key]: value
+    })
+  }
   render () {
-    const { primary, primaryText, secondary, secondaryText, accent, accentText } = this.props.colors
+    if (!this.state) return <div />
+    const { primary, primaryText, secondary, secondaryText, accent, accentText } = this.state
+    const colors = this.props.colors
     return (
       <div className='dashboard customization'>
         <h1>Customization</h1>
+
         <div className='preview' style={{ background: secondary, color: secondaryText }}>
           <header style={{ background: primary, color: primaryText }}>Shopping cart preview</header>
           <main>
@@ -54,20 +70,20 @@ class Customization extends Component {
 
         <h1>Primary colors</h1>
         <div className='tiles tiles-2'>
-          <Colorpicker className='tile' title='Background' color={primary} />
-          <Colorpicker className='tile' title='Text' color={primaryText} />
+          <Colorpicker className='tile' title='Background' color={colors.primary} onFinish={c => this.update('primary', c)} />
+          <Colorpicker className='tile' title='Text' color={colors.primaryText} onFinish={c => this.update('primaryText', c)} />
         </div>
 
         <h1>Secondary colors</h1>
         <div className='tiles tiles-2'>
-          <Colorpicker className='tile' title='Background' color={secondary} />
-          <Colorpicker className='tile' title='Text' color={secondaryText} />
+          <Colorpicker className='tile' title='Background' color={colors.secondary} onFinish={c => this.update('secondary', c)} />
+          <Colorpicker className='tile' title='Text' color={colors.secondaryText} onFinish={c => this.update('secondaryText', c)} />
         </div>
 
         <h1>Accent colors</h1>
         <div className='tiles tiles-2'>
-          <Colorpicker className='tile' title='Background' color={accent} />
-          <Colorpicker className='tile' title='Text' color={accentText} />
+          <Colorpicker className='tile' title='Background' color={colors.accent} onFinish={c => this.update('accent', c)} />
+          <Colorpicker className='tile' title='Text' color={colors.accentText} onFinish={c => this.update('accentText', c)} />
         </div>
 
         <h1>Custom CSS</h1>

@@ -1,6 +1,6 @@
 import React from 'react'
-// import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+import ConfigModal from './ConfigModal'
 import './index.scss'
 
 export default function Modal (props) {
@@ -12,15 +12,15 @@ export default function Modal (props) {
       classNames='modal-container'>
       <div className='modal-container flex-container flex-center' onClick={e => props.onClose(e)}>
         <div className='modal' onClick={e => e.stopPropagation()}>
-          {props.children}
+          {props.data ? <ConfigModal {...props} /> : props.children}
         </div>
       </div>
     </CSSTransition>
   )
 }
 
-// function mapStateToProps (state) {
-//   return {}
-// }
-
-// export default connect(mapStateToProps)(Modal)
+Modal.propTypes = {
+  oneOf (props, name, componentName) {
+    if (!props['children'] && !props['data'] && props['active']) throw new Error(`${componentName} requires either 'children' or 'data'`)
+  }
+}

@@ -37,6 +37,30 @@ input.radio[type=radio] {
   width: 100%;
   padding: 0 14px;
 
+  &.hover {
+    .row:hover {
+      cursor: pointer;
+      background: $accent-1-light;
+    }
+  }
+  &.dividers {
+    border-top: 1px solid $black-4;
+
+    .row > * {
+      position: relative;
+
+      &:after {
+        position: absolute;
+        content: '';
+        height: 1px;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        background: $black-4;
+      }
+    }
+  }
+
   .row {
     display: table-row;
     min-height: 54px;
@@ -54,6 +78,10 @@ input.radio[type=radio] {
     }
     .value {
       width: 99%;
+
+      a {
+        color: $accent-1;
+      }
     }
   }
 }
