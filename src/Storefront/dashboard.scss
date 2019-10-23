@@ -33,6 +33,14 @@
       margin: 5px 0;
     }
   }
+  .buttons {
+    text-align: right;
+
+    .btn {
+      margin: 14px 14px 2px 14px;
+      padding: 0 28px;
+    }
+  }
   .tiles {
     .tile {
       min-height: 80px;
@@ -143,14 +151,6 @@
     }
   }
   &.settings {
-    .buttons {
-      text-align: right;
-
-      .btn {
-        margin: 2px 14px;
-        padding: 0 28px;
-      }
-    }
     .cart-type-preview {
       float: left;
       height: 100px;

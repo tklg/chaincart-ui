@@ -18,7 +18,8 @@ const defaultState = {
       secondary: '#dddddd',
       secondaryText: '#555555',
       accent: '#81C41D',
-      accentText: '#ffffff'
+      accentText: '#ffffff',
+      css: ``
     }
   },
   orders: {

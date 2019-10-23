@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { money } from '../util'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import Modal from '../Modal'
 import { Checkbox } from '../Input'
@@ -29,7 +29,7 @@ class Products extends Component {
         <nav className='flex-container'>
           <h1 className='flex'>Products</h1>
           <input placeholder='Search' />
-          <button className='btn'>Add product</button>
+          <Link className='btn' to='products/create'>Add product</Link>
         </nav>
         <table cellSpacing='0' cellPadding='0' className='hover'>
           <thead>
@@ -46,84 +46,96 @@ class Products extends Component {
           </tbody>
         </table>
 
+        <Route path='/store/*/products/create' children={({ match }) => {
+          return (
+            <Modal
+              active={match !== null}
+              onClose={e => this.props.dispatch(push('../products'))}
+              onSave={data => console.log(data)}
+              data={modalData(null)} />
+          )
+        }} />
         <Route path='/store/*/products/:id' children={({ match }) => {
+          if (match && match.params.id === 'create') return null
           const product = match ? this.props.products.find(x => x.id === match.params.id) : null
           return (
             <Modal
               active={match !== null}
               onClose={e => this.props.dispatch(push('../products'))}
               onSave={data => console.log(data)}
-              data={product ? {
-                id: product.id,
-                header: {
-                  title: product.name,
-                  subtitle: product.sku
-                },
-                footer: {},
-                values: [{
-                  name: 'Product name',
-                  key: 'name',
-                  value: product.name,
-                  component: {
-                    type: 'input',
-                    props: {
-                      placeholder: 'My product'
-                    }
-                  }
-                }, {
-                  name: 'Description',
-                  key: 'description',
-                  value: product.description,
-                  component: {
-                    type: 'textarea',
-                    props: {
-                      placeholder: 'Describe it!'
-                    }
-                  }
-                }, {
-                  name: 'Price',
-                  key: 'price',
-                  value: product.price,
-                  convert: {
-                    from (x) { return x * 100 },
-                    to (x) { return x / 100 }
-                  },
-                  component: {
-                    type: 'input',
-                    props: {
-                      type: 'number',
-                      placeholder: '0.00'
-                    }
-                  }
-                }, {
-                  name: 'Stock',
-                  key: 'available',
-                  value: product.available,
-                  component: {
-                    type: 'input',
-                    props: {
-                      type: 'number',
-                      placeholder: '0'
-                    }
-                  }
-                }, {
-                  name: 'Infinite?',
-                  key: 'infinite',
-                  value: product.infinite,
-                  component: {
-                    type: Checkbox,
-                    props: {
-                      id: 'product-infinite-' + product.id
-                    }
-                  }
-                }]
-              } : null} />
+              data={product ? modalData(product) : null} />
           )
         }} />
       </div>
     )
   }
 }
+
+const modalData = product => ({
+  id: product ? product.id : 'create',
+  header: {
+    title: product ? product.name : 'New product',
+    subtitle: product ? product.sku : ''
+  },
+  footer: {},
+  values: [{
+    name: 'Product name',
+    key: 'name',
+    value: product ? product.name : '',
+    component: {
+      type: 'input',
+      props: {
+        placeholder: 'My product'
+      }
+    }
+  }, {
+    name: 'Description',
+    key: 'description',
+    value: product ? product.description : '',
+    component: {
+      type: 'textarea',
+      props: {
+        placeholder: 'Describe it!'
+      }
+    }
+  }, {
+    name: 'Price',
+    key: 'price',
+    value: product ? product.price : 0,
+    convert: {
+      from (x) { return x * 100 },
+      to (x) { return x / 100 }
+    },
+    component: {
+      type: 'input',
+      props: {
+        type: 'number',
+        placeholder: '0.00'
+      }
+    }
+  }, {
+    name: 'Stock',
+    key: 'available',
+    value: product ? product.available : 0,
+    component: {
+      type: 'input',
+      props: {
+        type: 'number',
+        placeholder: '0'
+      }
+    }
+  }, {
+    name: 'Infinite?',
+    key: 'infinite',
+    value: product ? product.infinite : false,
+    component: {
+      type: Checkbox,
+      props: {
+        id: 'product-infinite-' + (product ? product.id : 'create')
+      }
+    }
+  }]
+})
 
 const mapStateToProps = ({ storefronts }, props) => {
   return {
