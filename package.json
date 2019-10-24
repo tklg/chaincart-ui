@@ -8,6 +8,7 @@
     "test": "jest --no-cache",
     "serve": "react-scripts start",
     "build": "react-scripts build",
+    "eject": "react-scripts eject",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
