@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
+import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { money } from '../util'
+import Modal from '../Modal'
 import './index.scss'
 
 class Storefronts extends Component {
@@ -38,12 +40,23 @@ class Storefronts extends Component {
         <div className='width-limit'>
           <nav className='flex-container'>
             <h1 className='flex'>Your storefronts</h1>
-            <button className='btn'>Create</button>
+            <Link className='btn' to='/store/create'>Create</Link>
           </nav>
           <div className='tiles'>
             {this.props.stores.map(this.renderStorefront)}
           </div>
         </div>
+
+        <Route path='/store/create' children={({ match }) => {
+          return (
+            <Modal
+              className='small'
+              active={match !== null}
+              onClose={e => this.props.dispatch(push('../../'))}
+              onSave={data => console.log(data)}
+              data={modalData(null)} />
+          )
+        }} />
       </div>
     )
   }
@@ -54,5 +67,23 @@ const mapStateToProps = ({ storefronts }, props) => {
     stores: storefronts.stores
   }
 }
+
+const modalData = () => ({
+  header: {
+    title: 'Open a new storefront',
+    subtitle: ''
+  },
+  footer: {},
+  values: [{
+    name: 'Name',
+    value: '',
+    component: {
+      type: 'input',
+      props: {
+        placeholder: 'Store name'
+      }
+    }
+  }]
+})
 
 export default connect(mapStateToProps)(Storefronts)

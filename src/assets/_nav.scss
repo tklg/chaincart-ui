@@ -12,7 +12,7 @@
   .btn {
     vertical-align: middle;
   }
-  a {
+  a:not(.btn) {
     color: $text-dark-1;
     display: inline-block;
     height: 50px;

@@ -45,6 +45,12 @@ export default function (props) {
     }
   }
 
+  useEffect(() => {
+    return () => {
+      document.body.onmousemove = document.body.onmouseup = null
+    }
+  }, [])
+
   return (
     <form className={react.classes(props.className, 'colorpicker')} onSubmit={e => e.preventDefault()}>
       <div className='details flex-container'>

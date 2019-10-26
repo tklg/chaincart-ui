@@ -1,6 +1,7 @@
 import React from 'react'
 import { CSSTransition } from 'react-transition-group'
 import ConfigModal from './ConfigModal'
+import { react } from '../util'
 import './index.scss'
 
 export default function Modal (props) {
@@ -11,7 +12,7 @@ export default function Modal (props) {
       unmountOnExit
       classNames='modal-container'>
       <div className='modal-container flex-container flex-center' onClick={e => props.onClose(e)}>
-        <div className='modal' onClick={e => e.stopPropagation()}>
+        <div className={react.classes('modal', props.className)} onClick={e => e.stopPropagation()}>
           {props.data ? <ConfigModal {...props} /> : props.children}
         </div>
       </div>

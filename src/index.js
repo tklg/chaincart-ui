@@ -9,7 +9,9 @@ import { routerMiddleware, ConnectedRouter as Router } from 'connected-react-rou
 import reducers from './reducers'
 import App from './App'
 
-const history = createBrowserHistory()
+const history = createBrowserHistory({
+  basename: '/app/'
+})
 
 const store = createStore(
   reducers(history),
@@ -23,7 +25,7 @@ const store = createStore(
 
 ReactDOM.render(<ErrorBoundary>
   <Provider store={store}>
-    <Router basepath='/' history={history} >
+    <Router history={history} >
       <App />
     </Router>
   </Provider>

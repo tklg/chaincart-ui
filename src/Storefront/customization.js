@@ -17,7 +17,6 @@ class Customization extends Component {
   }
   componentDidMount () {
     this.setState(this.props.colors)
-    console.log(react.cssNamespace(this.props.colors.css, `#${this.previewID}`))
   }
   update (key, value) {
     this.setState({

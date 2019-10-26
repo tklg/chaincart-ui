@@ -25,6 +25,10 @@
     display: flex;
     flex-direction: column;
 
+    &.small {
+      min-height: initial;
+    }
+
     textarea {
       font-family: inherit;
       font-size: 0.9em;

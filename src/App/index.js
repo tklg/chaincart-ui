@@ -11,13 +11,15 @@ export default class App extends Component {
       <div className='app flex-container flex-vertical'>
         <Header />
         <Switch>
-          <Route path='/' exact>
+          <Route path='/(store/create)?' exact>
             <Storefronts />
           </Route>
           <Route
             path='/store/:id'
             render={({ match }) => (
-              <Storefront id={match.params.id} />
+              match.params.id === 'create'
+                ? null
+                : <Storefront id={match.params.id} />
             )} />
         </Switch>
       </div>
