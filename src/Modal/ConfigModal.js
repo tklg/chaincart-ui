@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ConfirmButton from '../ConfirmButton'
 import { object, arrayOf, oneOfType, string, number, bool, shape, func, elementType } from 'prop-types'
 
 export default function ConfigModal ({ data, ...props }) {
@@ -28,15 +29,17 @@ export default function ConfigModal ({ data, ...props }) {
         })}
       </div>}
     </main>),
-    (<footer key='footer'>
+    (<footer key='footer' className='flex-container'>
       {footer.buttons == null &&
         <>
+          {!footer.hideDelete && <ConfirmButton onClick={props.onDelete}>Delete</ConfirmButton>}
+          <div className='flex' />
           <button className='btn btn-clear' onClick={e => props.onClose(e)}>Cancel</button>
           <button className='btn' onClick={e => props.onSave(stored)}>Save</button>
         </>
       }
       {footer.buttons && footer.buttons.map((x, i, a) => (
-        <button className={`btn${i !== (a.length - 1) ? ' btn-clear' : ''}`} onClick={x.onClick} key={i}>{x.title}</button>
+        <button className={`btn${i !== (a.length - 1) ? ' btn-clear' : ''}`} onClick={e => x.onClick(e, props, stored)} key={i}>{x.title}</button>
       ))}
     </footer>)
   ]
@@ -65,10 +68,13 @@ ConfigModal.propTypes = {
       buttons: arrayOf(shape({
         title: string.isRequired,
         onClick: func.isRequired
-      }))
+      })),
+      hideDelete: bool
     })
   }).isRequired,
-  onSave: func
+  onSave: func,
+  onDelete: func,
+  onClose: func
 }
 
 ConfigModal.defaultProps = {

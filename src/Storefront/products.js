@@ -5,6 +5,7 @@ import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import Modal from '../Modal'
 import { Checkbox } from '../Input'
+import { createProduct, fetchProducts, deleteProduct, saveProduct } from '../actions'
 import './dashboard.scss'
 
 class Products extends Component {
@@ -12,9 +13,12 @@ class Products extends Component {
     super()
     this.renderProductRow = this.renderProductRow.bind(this)
   }
+  componentDidMount () {
+    if (!this.props.products.length) this.props.dispatch(fetchProducts(this.props.store.id))
+  }
   renderProductRow (product, i, a) {
     return (
-      <tr key={i} onClick={e => this.props.dispatch(push(`/store/${this.props.store.id}/products/${product.id}`))}>
+      <tr key={i} onClick={e => this.props.dispatch(push(`/store/${this.props.store.id}/products/${product.hash}`))}>
         <td>{product.name}</td>
         <td>{product.description}</td>
         <td>{money.fmt(product.price)}</td>
@@ -51,18 +55,19 @@ class Products extends Component {
             <Modal
               active={match !== null}
               onClose={e => this.props.dispatch(push('../products'))}
-              onSave={data => console.log(data)}
+              onSave={data => this.props.dispatch(createProduct(this.props.store.id, data))}
               data={modalData(null)} />
           )
         }} />
         <Route path='/store/*/products/:id' children={({ match }) => {
           if (match && match.params.id === 'create') return null
-          const product = match ? this.props.products.find(x => x.id === match.params.id) : null
+          const product = match ? this.props.products.find(x => x.hash === match.params.id) : null
           return (
             <Modal
-              active={match !== null}
+              active={product !== null}
+              onDelete={e => this.props.dispatch(deleteProduct(this.props.store.id, product.hash))}
               onClose={e => this.props.dispatch(push('../products'))}
-              onSave={data => console.log(data)}
+              onSave={data => this.props.dispatch(saveProduct(this.props.store.id, product.hash, data))}
               data={product ? modalData(product) : null} />
           )
         }} />
@@ -77,7 +82,9 @@ const modalData = product => ({
     title: product ? product.name : 'New product',
     subtitle: product ? product.sku : ''
   },
-  footer: {},
+  footer: {
+    hideDelete: product ? false : true
+  },
   values: [{
     name: 'Product name',
     key: 'name',
@@ -85,6 +92,7 @@ const modalData = product => ({
     component: {
       type: 'input',
       props: {
+        required: true,
         placeholder: 'My product'
       }
     }
@@ -125,7 +133,7 @@ const modalData = product => ({
       }
     }
   }, {
-    name: 'Infinite?',
+    name: 'Infinite stock?',
     key: 'infinite',
     value: product ? product.infinite : false,
     component: {
@@ -140,7 +148,7 @@ const modalData = product => ({
 const mapStateToProps = ({ storefronts }, props) => {
   return {
     store: storefronts.stores.find(x => x.id === props.id),
-    products: storefronts.products[props.id]
+    products: storefronts.products[props.id] || []
   }
 }
 

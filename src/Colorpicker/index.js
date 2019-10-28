@@ -13,10 +13,9 @@ export default function (props) {
   useEffect(() => {
     if (/^#([0-9a-f]){6}$/i.test(hex) && isFocused) {
       setHSL(color.hex2hsl(hex))
-      return
+      if (onChange) onChange(hex)
+      if (onFinish) onFinish(hex)
     }
-    if (onChange) onChange(hex)
-    if (onFinish) onFinish(hex)
     if (!hex.length) setHex('#')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hex])

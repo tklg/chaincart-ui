@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { money, time } from '../util'
 import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
+import { fetchOrders } from '../actions'
 import Modal from '../Modal'
 import './dashboard.scss'
 
@@ -10,6 +11,9 @@ class Orders extends Component {
   constructor () {
     super()
     this.renderOrderRow = this.renderOrderRow.bind(this)
+  }
+  componentDidMount () {
+    if (!this.props.orders.length) this.props.dispatch(fetchOrders(this.props.store.id))
   }
   renderOrderRow (o, i, a) {
     return (
@@ -110,10 +114,10 @@ class Orders extends Component {
   }
 }
 
-const mapStateToProps = ({ storefronts }, props) => {
+const mapStateToProps = ({ storefronts, orders }, props) => {
   return {
     store: storefronts.stores.find(x => x.id === props.id),
-    orders: storefronts.orders[props.id]
+    orders: orders[props.id] || []
   }
 }
 

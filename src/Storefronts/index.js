@@ -3,6 +3,7 @@ import { Link, Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { money } from '../util'
+import { createStorefront, loadStorefronts } from '../actions'
 import Modal from '../Modal'
 import './index.scss'
 
@@ -12,6 +13,10 @@ class Storefronts extends Component {
     this.renderStorefront = this.renderStorefront.bind(this)
   }
 
+  componentDidMount () {
+    if (!this.props.stores.length) this.props.dispatch(loadStorefronts())
+  }
+
   renderStorefront (data, i) {
     return (
       <Link key={i} className='tile hover' to={`store/${data.id}/dashboard`}>
@@ -19,11 +24,11 @@ class Storefronts extends Component {
         <div className='stats'>
           <div className='stat'>
             <span className='stat-key'>Products</span>
-            <span className='stat-value'>{data.items}</span>
+            <span className='stat-value'>{data.productCount}</span>
           </div>
           <div className='stat'>
             <span className='stat-key'>Sales</span>
-            <span className='stat-value'>{data.sales}</span>
+            <span className='stat-value'>{data.orderCount}</span>
           </div>
           <div className='stat'>
             <span className='stat-key'>Revenue</span>
@@ -53,7 +58,7 @@ class Storefronts extends Component {
               className='small'
               active={match !== null}
               onClose={e => this.props.dispatch(push('../../'))}
-              onSave={data => console.log(data)}
+              onSave={data => this.props.dispatch(createStorefront(data))}
               data={modalData(null)} />
           )
         }} />

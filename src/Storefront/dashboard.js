@@ -6,34 +6,35 @@ import './dashboard.scss'
 class Dashboard extends Component {
   render () {
     const { store } = this.props
+    if (!store) return <div />
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
         <div className='tiles tiles-3'>
           <div className='tile flex-container flex-center'>
             <span className='key'>Sales</span>
-            <span className='value'>{store.sales}</span>
+            <span className='value'>{store.orderCount || 0}</span>
           </div>
           <div className='tile flex-container flex-center'>
             <span className='key'>Revenue</span>
-            <span className='value'>{money.fmt(store.revenue)}</span>
+            <span className='value'>{money.fmt(store.revenue || 0)}</span>
           </div>
           <div className='tile flex-container flex-center'>
             <span className='key'>Customers</span>
-            <span className='value'>0</span>
+            <span className='value'>{store.customerCount || 0}</span>
           </div>
           <div className='tile flex-container flex-center'>
             <span className='key'>Average purchase</span>
-            <span className='value'>{money.fmt(0)}</span>
+            <span className='value'>{money.fmt(store.averagePurchase || 0)}</span>
           </div>
-          <div className='tile flex-container flex-center'>
+          {/*<div className='tile flex-container flex-center'>
             <span className='key'>Discounts</span>
             <span className='value'>{money.fmt(0)}</span>
           </div>
           <div className='tile flex-container flex-center'>
             <span className='key'>Recovered</span>
             <span className='value'>{money.fmt(0)}</span>
-          </div>
+          </div>*/}
         </div>
 
         <h1>Sales over time</h1>

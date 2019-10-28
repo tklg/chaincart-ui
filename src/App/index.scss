@@ -42,6 +42,65 @@ body,
   position: relative;
 }
 
+.app {
+  $popoverHeight: 50px;
+  .popover-container {
+    position: fixed;
+    text-align: center;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    z-index: 2000;
+
+    .error {
+      height: 0;
+      width: 100%;
+      transition: height .15s $transition;
+      background: red;
+      color: $text-light-1;
+      line-height: $popoverHeight;
+      @include ellip;
+      cursor: pointer;
+      box-shadow: $shadow-1;
+      pointer-events: initial;
+
+      &:before {
+        content: '✕';
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $text-light-2;
+        font-size: 2em;
+        height: $popoverHeight;
+        line-height: $popoverHeight;
+        width: $popoverHeight;
+        text-align: center;
+      }
+
+      &.active {
+        height: $popoverHeight;
+      }
+    }
+    .success {
+      margin: 0 auto;
+      height: 0;
+      top: 0;
+      padding: 0 30px;
+      line-height: $popoverHeight;
+      background: $green;
+      display: inline-block;
+      color: $text-light-1;
+      transition: .15s height $transition;
+      box-shadow: $shadow-1;
+
+      &.active {
+        height: $popoverHeight;
+      }
+    }
+  }
+}
+
 h1, h2, h3, h4 {
   margin: 0;
   padding: 0;

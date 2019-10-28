@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import ConfirmButton from '../ConfirmButton'
 import './dashboard.scss'
 
 class Settings extends Component {
@@ -63,6 +64,22 @@ class Settings extends Component {
           <div className='row buttons'>
             <span />
             <button className='btn' onClick={this.saveSettings}>Save</button>
+          </div>
+        </div>
+
+        <h1 className='dangerzone'>Danger zone</h1>
+        <div className='rows'>
+          <div className='row'>
+            <h2 className='key'>Disable storefront</h2>
+            <div className='value'>
+              <ConfirmButton onClick={console.log}>Disable</ConfirmButton>
+            </div>
+          </div>
+          <div className='row'>
+            <h2 className='key'>Delete storefront</h2>
+            <div className='value'>
+              <ConfirmButton onClick={console.log}>Delete</ConfirmButton>
+            </div>
           </div>
         </div>
       </div>

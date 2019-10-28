@@ -9,6 +9,7 @@ import Discounts from './discounts'
 import Settings from './settings'
 import Icon from '@mdi/react'
 import { mdiChevronLeft } from '@mdi/js'
+import { loadStorefronts } from '../actions'
 import './index.scss'
 
 const pages = [{ name: 'Dashboard', component: Dashboard },
@@ -19,6 +20,9 @@ const pages = [{ name: 'Dashboard', component: Dashboard },
   { name: 'Settings', component: Settings }]
 
 class Storefront extends Component {
+  componentDidMount () {
+    if (!this.props.store) this.props.dispatch(loadStorefronts())
+  }
   render () {
     return (
       <div className='storefront flex'>
@@ -31,17 +35,20 @@ class Storefront extends Component {
             {pages.map((page, i) => (<NavLink key={i} className='btn btn-clear' to={`/store/${this.props.id}/${page.name.toLowerCase()}`}>{page.name}</NavLink>))}
           </nav>
           <div className='content flex'>
-            <Switch>
-              {pages.map((page, i) => (
+            {this.props.store &&
+              <Switch>
+                {pages.map((page, i) => (
 
-                <Route
-                  key={i}
-                  path={`/store/:id/${page.name}`}
-                  render={({ match }) => (
-                    <page.component id={match.params.id} />
-                  )} />
-              ))}
-            </Switch>
+                  <Route
+                    key={i}
+                    path={`/store/:id/${page.name}`}
+                    render={({ match }) => (
+                      <page.component id={match.params.id} />
+                    )} />
+                ))}
+              </Switch>
+            }
+            {!this.props.store && 'loading'}
           </div>
         </div>
       </div>

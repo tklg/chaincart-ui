@@ -1,0 +1,13 @@
+@import "src/assets/vars";
+
+.btn.btn-delete {
+  background: transparent;
+  color: $red;
+  border: 1px solid $red;
+  box-shadow: none;
+
+  &:hover {
+    background: $red;
+    color: $text-light-1;
+  }
+}

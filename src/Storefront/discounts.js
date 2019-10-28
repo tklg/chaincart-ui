@@ -83,7 +83,9 @@ const modalData = discount => ({
     title: discount ? discount.code : 'Create discount code',
     subtitle: discount ? discount.id : ''
   },
-  footer: {},
+  footer: {
+    hideDelete: discount ? false : true
+  },
   values: [{
     name: 'Code',
     value: discount ? discount.code : '',
@@ -162,10 +164,10 @@ const modalData = discount => ({
   }*/]
 })
 
-const mapStateToProps = ({ storefronts }, props) => {
+const mapStateToProps = ({ storefronts, discounts }, props) => {
   return {
     store: storefronts.stores.find(x => x.id === props.id),
-    discounts: storefronts.discounts[props.id]
+    discounts: discounts[props.id] || []
   }
 }
 

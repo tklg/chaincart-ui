@@ -20,8 +20,8 @@ export default function Modal (props) {
   )
 }
 
-Modal.propTypes = {
-  oneOf (props, name, componentName) {
-    if (!props['children'] && !props['data'] && props['active']) throw new Error(`${componentName} requires either 'children' or 'data'`)
-  }
-}
+// Modal.propTypes = {
+//   oneOf (props, name, componentName) {
+//     if (props['active'] && !props['children'] && !props['data']) throw new Error(`${componentName} requires either 'children' or 'data'`)
+//   }
+// }

@@ -5,6 +5,7 @@ import { money, react } from '../util'
 import Icon from '@mdi/react'
 import { mdiImage } from '@mdi/js'
 import Texteditor from '../Texteditor'
+import { saveCustomization } from '../actions'
 import './dashboard.scss'
 
 class Customization extends Component {
@@ -12,27 +13,24 @@ class Customization extends Component {
     super()
     this.state = null
     this.update = this.update.bind(this)
-    this.saveSettings = this.saveSettings.bind(this)
     this.previewID = 'preview-' + Date.now().toString(16)
   }
   componentDidMount () {
-    this.setState(this.props.colors)
+    this.setState(this.props.store.colors)
   }
   update (key, value) {
+    console.log(key, value)
     this.setState({
       [key]: value
     })
   }
-  saveSettings () {
-    console.log(this.state)
-  }
   render () {
     if (!this.state) return <div />
     const { primary, primaryText, secondary, secondaryText, accent, accentText, css } = this.state
-    const colors = this.props.colors
+    const colors = this.props.store.colors
     return (
       <div className='dashboard customization'>
-        <style type='text/css' dangerouslySetInnerHTML={{ __html: react.cssNamespace(`.cart--header {background: ${primary}; color: ${primaryText}} .cart--items-header th {color: ${secondaryText}} .cart--item td {color: ${secondaryText}} .cart--btn {background: ${accent}; color: ${accentText}}`, `#${this.previewID}`) }} />
+        <style type='text/css' dangerouslySetInnerHTML={{ __html: react.cssNamespace(`header {background: ${primary}; color: ${primaryText}} thead th {color: ${secondaryText}} tbody td {color: ${secondaryText}} footer .btn {background: ${accent}; color: ${accentText}}`, `#${this.previewID}`) }} />
         <style type='text/css' dangerouslySetInnerHTML={{ __html: react.cssNamespace(css, `#${this.previewID}`) }} />
         <h1>Customization</h1>
         <div className='preview' id={this.previewID} style={{ background: secondary, color: secondaryText }}>
@@ -98,7 +96,7 @@ class Customization extends Component {
         <div className='rows'>
           <div className='row buttons'>
             <span />
-            <button className='btn' onClick={this.saveSettings}>Save</button>
+            <button className='btn' onClick={e => this.props.dispatch(saveCustomization(this.props.store.id, this.state))}>Save</button>
           </div>
         </div>
       </div>
@@ -108,8 +106,7 @@ class Customization extends Component {
 
 const mapStateToProps = ({ storefronts }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id),
-    colors: storefronts.customization[props.id]
+    store: storefronts.stores.find(x => x.id === props.id)
   }
 }
 

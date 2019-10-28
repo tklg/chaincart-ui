@@ -2,6 +2,13 @@
 @import "src/assets/nav";
 
 .storefronts {
+  height: 100%;
+  .width-limit {
+    overflow: hidden;
+    overflow-y: auto;
+    padding-bottom: 60px;
+  }
+
   nav {
     @include section-nav;
   }
