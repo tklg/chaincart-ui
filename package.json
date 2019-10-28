@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --no-cache",
-    "serve": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "standard",

@@ -5,11 +5,12 @@ import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import Modal from '../Modal'
 import { Select } from '../Input'
+import { createDiscount, fetchDiscounts, deleteDiscount, saveDiscount } from '../actions'
 import './dashboard.scss'
 
 const dateInputConvert = {
-  from (x) { return (new Date(x)).getTime() },
-  to (x) { return (new Date(x)).toISOString().substr(0, 10) }
+  from (x) { return +((new Date(x)).getTime() / 1000).toFixed(2) },
+  to (x) { return (new Date(x * 1000)).toISOString().substr(0, 10) }
 }
 
 class Discounts extends Component {
@@ -17,16 +18,19 @@ class Discounts extends Component {
     super()
     this.renderDiscountRow = this.renderDiscountRow.bind(this)
   }
+  componentDidMount () {
+    if (!this.props.discounts.length) this.props.dispatch(fetchDiscounts(this.props.store.id))
+  }
   renderDiscountRow (o, i, a) {
-    const amount = o.type === 'percent' ? `${o.amount}% off` : `${money.fmt(o.amount)} off`
+    const amount = o.type === 0 ? `${o.amount / 100}% off` : `${money.fmt(o.amount)} off`
     const now = Date.now()
     return (
-      <tr key={i} onClick={e => this.props.dispatch(push(`discounts/${o.id}`))}>
+      <tr key={i} onClick={e => this.props.dispatch(push(`discounts/${o.hash}`))}>
         <td>{o.code}</td>
         <td>{amount}</td>
         <td>{o.uses === -1 ? '' : o.uses}</td>
         {/*<td>{o.exemptProducts.length}</td>*/}
-        <td>{o.validFrom <= now && now < o.validTo ? 'Yes' : ''}</td>
+        <td>{+o.validFrom <= now && now < +o.validTo ? 'Yes' : ''}</td>
       </tr>
     )
   }
@@ -58,18 +62,19 @@ class Discounts extends Component {
             <Modal
               active={match !== null}
               onClose={e => this.props.dispatch(push('../discounts'))}
-              onSave={data => console.log(data)}
+              onSave={data => this.props.dispatch(createDiscount(this.props.store.id, data))}
               data={modalData(null)} />
           )
         }} />
         <Route path='/store/*/discounts/:id' children={({ match }) => {
           if (match && match.params.id === 'create') return null
-          const discount = match ? this.props.discounts.find(x => x.id === match.params.id) : null
+          const discount = match ? this.props.discounts.find(x => x.hash === match.params.id) : null
           return (
             <Modal
               active={match !== null}
+              onDelete={e => this.props.dispatch(deleteDiscount(this.props.store.id, discount.hash))}
               onClose={e => this.props.dispatch(push('../discounts'))}
-              onSave={data => console.log(data)}
+              onSave={data => this.props.dispatch(saveDiscount(this.props.store.id, discount.hash, data))}
               data={discount ? modalData(discount) : null} />
           )
         }} />
@@ -81,7 +86,7 @@ class Discounts extends Component {
 const modalData = discount => ({
   header: {
     title: discount ? discount.code : 'Create discount code',
-    subtitle: discount ? discount.id : ''
+    subtitle: discount ? discount.hash : ''
   },
   footer: {
     hideDelete: discount ? false : true
@@ -132,7 +137,7 @@ const modalData = discount => ({
   }, {
     name: 'Valid from',
     key: 'validFrom',
-    value: discount ? discount.validFrom : Date.now(),
+    value: discount ? +discount.validFrom : +(Date.now() / 1000).toFixed(0),
     convert: dateInputConvert,
     component: {
       type: 'input',
@@ -143,7 +148,7 @@ const modalData = discount => ({
   }, {
     name: 'Valid to',
     key: 'validTo',
-    value: discount ? discount.validTo : Date.now() + (1000 * 60 * 60 * 24 * 7), // 1 week
+    value: discount ? +discount.validTo : (+(Date.now() / 1000).toFixed(0) + (60 * 60 * 24 * 7)), // 1 week
     convert: dateInputConvert,
     component: {
       type: 'input',

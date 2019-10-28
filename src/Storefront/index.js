@@ -48,7 +48,7 @@ class Storefront extends Component {
                 ))}
               </Switch>
             }
-            {!this.props.store && 'loading'}
+            {!this.props.store && <div className='loading'>Loading</div>}
           </div>
         </div>
       </div>

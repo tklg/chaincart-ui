@@ -4,9 +4,11 @@ import { push } from 'connected-react-router'
 import products from './products'
 import customization from './customization'
 import orders from './orders'
+import discounts from './discounts'
 export * from './products'
 export * from './customization'
 export * from './orders'
+export * from './discounts'
 
 let successTimer
 const _actions = [
@@ -20,7 +22,8 @@ const _actions = [
 const actions = {
   ...products,
   ...customization,
-  ...orders
+  ...orders,
+  ...discounts
 }
 
 export const setError = (str) => ({
@@ -82,7 +85,7 @@ export const workstate = async (dispatch, fn) => {
     console.warn(e)
     dispatch({
       type: actions.set_error,
-      data: e.toString().substr(6)
+      data: e.toString().replace(/^\w*?Error:/, '').trim()
     })
   } finally {
     dispatch({

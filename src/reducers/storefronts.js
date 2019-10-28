@@ -31,17 +31,17 @@ const defaultState = {
       id: '2', customer: { name: 'customer 2' }, price: 25, products: [{ id: '2', name: 'test 2', price: 250, count: 2 }, { id: '1', name: 'test', price: 2500, count: 1 }], status: 'delivered', createdAt: Date.now() - (60 * 1000 * 35), discount: { id: '2', code: 'm10' }
     }]
   },*/
-  discounts: {
+  /*discounts: {
     a: [{
       id: '1', code: 'save10', type: 0, amount: 1000, uses: 1, exemptProducts: [{ id: '1', name: 'test' }], createdAt: Date.now() - (60 * 1000 * 45), validFrom: Date.now() - 10000, validTo: Date.now() + 1000
     }, {
       id: '2', code: 'm10', type: 1, amount: 1000, uses: 2, exemptProducts: [], createdAt: Date.now() - (60 * 1000 * 35), validFrom: Date.now() - 10000, validTo: Date.now() + 1000
     }]
-  }
+  }*/
 }
 
 const reducer = (state = defaultState, { type, data }) => {
-  let index, stores, store
+  let index
 
   switch (type) {
     case actions.set_storefronts:

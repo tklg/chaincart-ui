@@ -19,7 +19,6 @@ class Customization extends Component {
     this.setState(this.props.store.colors)
   }
   update (key, value) {
-    console.log(key, value)
     this.setState({
       [key]: value
     })

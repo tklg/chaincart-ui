@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 import storefronts from './storefronts'
 import orders from './orders'
+import discounts from './discounts'
 import actions from '../actions'
 
 const defaultState = {
@@ -41,5 +42,6 @@ export default history => combineReducers({
   router: connectRouter(history),
   app: appState,
   storefronts,
-  orders
+  orders,
+  discounts
 })
