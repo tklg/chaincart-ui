@@ -7,12 +7,14 @@ import Customization from './customization'
 import Orders from './orders'
 import Discounts from './discounts'
 import Settings from './settings'
+import Activate from './activate'
 import Icon from '@mdi/react'
 import { mdiChevronLeft } from '@mdi/js'
 import { loadStorefronts } from '../actions'
 import './index.scss'
 
 const pages = [{ name: 'Dashboard', component: Dashboard },
+  { name: 'Activate cart', component: Activate },
   { name: 'Products', component: Products },
   { name: 'Customization', component: Customization },
   { name: 'Orders', component: Orders },
@@ -32,7 +34,7 @@ class Storefront extends Component {
               <Icon path={mdiChevronLeft} />
               <span>Back to Storefronts</span>
             </h1></Link>
-            {pages.map((page, i) => (<NavLink key={i} className='btn btn-clear' to={`/store/${this.props.id}/${page.name.toLowerCase()}`}>{page.name}</NavLink>))}
+            {pages.map((page, i) => (<NavLink key={i} className='btn btn-clear' to={`/store/${this.props.id}/${page.name.toLowerCase().replace(' ', '-')}`}>{page.name}</NavLink>))}
           </nav>
           <div className='content flex'>
             {this.props.store &&
@@ -41,14 +43,14 @@ class Storefront extends Component {
 
                   <Route
                     key={i}
-                    path={`/store/:id/${page.name}`}
+                    path={`/store/:id/${page.name.toLowerCase().replace(' ', '-')}`}
                     render={({ match }) => (
                       <page.component id={match.params.id} />
                     )} />
                 ))}
               </Switch>
             }
-            {!this.props.store && <div className='loading'>Loading</div>}
+            {!this.props.store && <div className='loading'>Loading...</div>}
           </div>
         </div>
       </div>
@@ -58,7 +60,7 @@ class Storefront extends Component {
 
 const mapStateToProps = ({ storefronts }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id)
+    store: storefronts.find(x => x.id === props.id)
   }
 }
 

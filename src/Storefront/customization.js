@@ -33,9 +33,9 @@ class Customization extends Component {
         <style type='text/css' dangerouslySetInnerHTML={{ __html: react.cssNamespace(css, `#${this.previewID}`) }} />
         <h1>Customization</h1>
         <div className='preview' id={this.previewID} style={{ background: secondary, color: secondaryText }}>
-          <header className='cart--header'>Shopping cart preview</header>
+          <header className='cart--header'>{this.props.store.name} preview</header>
           <main className='cart--container'>
-            <form>
+            <form className='table-container'>
               <table cellSpacing='0' cellPadding='0' className='cart--items'>
                 <thead>
                   <tr className='cart--items-header'>
@@ -105,7 +105,7 @@ class Customization extends Component {
 
 const mapStateToProps = ({ storefronts }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id)
+    store: storefronts.find(x => x.id === props.id)
   }
 }
 

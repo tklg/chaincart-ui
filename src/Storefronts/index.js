@@ -69,7 +69,7 @@ class Storefronts extends Component {
 
 const mapStateToProps = ({ storefronts }, props) => {
   return {
-    stores: storefronts.stores
+    stores: storefronts
   }
 }
 

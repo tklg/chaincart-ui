@@ -25,10 +25,14 @@ body,
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
+  border-radius: 4px;
   background: $accent-1-light;
 }
 ::-webkit-scrollbar-thumb {
   width: 8px;
+  height: 8px;
+  border-radius: 4px;
   background: adjust-color($accent-1, $alpha: -0.6);
 }
 

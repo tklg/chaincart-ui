@@ -30,20 +30,24 @@ class Orders extends Component {
     return (
       <div className='dashboard orders'>
         <h1>Orders</h1>
-        <table cellSpacing='0' cellPadding='0' className='hover'>
-          <thead>
-            <tr>
-              <th>Customer</th>
-              <th>Price</th>
-              <th># Items</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.orders.map(this.renderOrderRow)}
-          </tbody>
-        </table>
+        {this.props.orders.length ?
+          <div className='table-container'>
+            <table cellSpacing='0' cellPadding='0' className='hover'>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Price</th>
+                  <th># Items</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.props.orders.map(this.renderOrderRow)}
+              </tbody>
+            </table>
+          </div> : <div className='table-empty'>No orders yet</div>
+        }
 
         <Route path='/store/*/orders/:id' children={({ match }) => {
           const order = match ? this.props.orders.find(x => x.id === match.params.id) : null
@@ -116,7 +120,7 @@ class Orders extends Component {
 
 const mapStateToProps = ({ storefronts, orders }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id),
+    store: storefronts.find(x => x.id === props.id),
     orders: orders[props.id] || []
   }
 }

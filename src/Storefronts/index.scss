@@ -13,8 +13,6 @@
     @include section-nav;
   }
   .tiles {
-    grid-template-columns: repeat(2, 1fr);
-
     .tile {
       cursor: pointer;
       padding-top: 0;
@@ -25,20 +23,18 @@
         font-weight: 500;
       }
       .stats {
-        height: 50px;
+        min-height: 50px;
 
         .stat {
           display: inline-block;
           height: 50px;
-          margin: 5px 0;
+          margin: 5px 14px 5px 0;
           width: 100px;
           border-right: 1px solid $black-5;
 
           &:last-of-type {
             border-right: none;
-          }
-          & + .stat {
-            margin-left: 14px;
+            margin-right: 0;
           }
 
           span {

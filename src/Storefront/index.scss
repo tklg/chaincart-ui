@@ -24,5 +24,10 @@
       font-size: 3em;
       color: $text-dark-3
     }
+
+    @include break('medium') {
+      margin-left: 50px;
+      width: calc(100% - 50px);
+    }
   }
 }

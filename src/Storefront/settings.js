@@ -1,29 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ConfirmButton from '../ConfirmButton'
+import { deleteStorefront, editStorefront } from '../actions'
 import './dashboard.scss'
 
 class Settings extends Component {
   constructor () {
     super()
-    this.state = { id: 0, name: 'Loading', items: 0, sales: 0, revenue: 0, cartType: 0, drawerDirection: 1 }
-    // this.state = {}
-    this.saveSettings = this.saveSettings.bind(this)
+    // this.state = { name: 'Loading', items: 0, sales: 0, revenue: 0, cartType: 0, drawerDirection: 1 }
+    this.state = {}
     this.setValue = this.setValue.bind(this)
   }
   componentDidMount () {
-    this.setState(this.props.store)
+    const { name, cartType } = this.props.store
+    this.setState({ name, cartType })
   }
   setValue (key, value) {
     this.setState({
       [key]: value
     })
   }
-  saveSettings () {
-    console.log(this.state)
-  }
   render () {
     const store = this.state
+    if (!store) return <div />
     return (
       <div className='dashboard settings'>
         <h1>Settings</h1>
@@ -31,7 +30,7 @@ class Settings extends Component {
           <div className='row'>
             <h2 className='key'>Storefront name</h2>
             <div className='value'>
-              <input placeholder='My cool store' value={store.name} onChange={e => this.setValue('name', e.target.value)} />
+              <input placeholder='My cool store' value={store.name || ''} onChange={e => this.setValue('name', e.target.value)} />
             </div>
           </div>
 
@@ -63,7 +62,7 @@ class Settings extends Component {
 
           <div className='row buttons'>
             <span />
-            <button className='btn' onClick={this.saveSettings}>Save</button>
+            <button className='btn' onClick={e => this.props.dispatch(editStorefront(this.props.store.id, store))}>Save</button>
           </div>
         </div>
 
@@ -78,7 +77,7 @@ class Settings extends Component {
           <div className='row'>
             <h2 className='key'>Delete storefront</h2>
             <div className='value'>
-              <ConfirmButton onClick={console.log}>Delete</ConfirmButton>
+              <ConfirmButton onClick={e => this.props.dispatch(deleteStorefront(store.id))}>Delete</ConfirmButton>
             </div>
           </div>
         </div>
@@ -88,7 +87,7 @@ class Settings extends Component {
 }
 
 const mapStateToProps = ({ storefronts }, props) => {
-  const store = storefronts.stores.find(x => x.id === props.id)
+  const store = storefronts.find(x => x.id === props.id)
   return {
     store
   }

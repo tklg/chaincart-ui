@@ -42,20 +42,22 @@ class Discounts extends Component {
           <input placeholder='Search' />
           <Link className='btn' to='discounts/create'>Create discount</Link>
         </nav>
-        <table cellSpacing='0' cellPadding='0' className='hover'>
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Amount</th>
-              <th>Remaining</th>
-              {/*<th>Exempt products</th>*/}
-              <th>Expired</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.discounts.map(this.renderDiscountRow)}
-          </tbody>
-        </table>
+        {this.props.discounts.length ? <div className='table-container'>
+          <table cellSpacing='0' cellPadding='0' className='hover'>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Amount</th>
+                <th>Remaining</th>
+                {/*<th>Exempt products</th>*/}
+                <th>Expired</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.discounts.map(this.renderDiscountRow)}
+            </tbody>
+          </table>
+        </div> : <div className='table-empty'>No discounts created</div>}
 
         <Route path='/store/*/discounts/create' children={({ match }) => {
           return (
@@ -171,7 +173,7 @@ const modalData = discount => ({
 
 const mapStateToProps = ({ storefronts, discounts }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id),
+    store: storefronts.find(x => x.id === props.id),
     discounts: discounts[props.id] || []
   }
 }

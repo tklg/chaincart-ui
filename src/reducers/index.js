@@ -3,6 +3,7 @@ import { connectRouter } from 'connected-react-router'
 import storefronts from './storefronts'
 import orders from './orders'
 import discounts from './discounts'
+import products from './products'
 import actions from '../actions'
 
 const defaultState = {
@@ -43,5 +44,6 @@ export default history => combineReducers({
   app: appState,
   storefronts,
   orders,
-  discounts
+  discounts,
+  products
 })

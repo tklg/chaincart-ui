@@ -11,8 +11,8 @@ export default function (props) {
   const [hsl, setHSL] = useState(color.hex2hsl(props.color))
   const [hex, setHex] = useState(props.color.toUpperCase())
   useEffect(() => {
-    if (/^#([0-9a-f]){6}$/i.test(hex) && isFocused) {
-      setHSL(color.hex2hsl(hex))
+    if (/^#([0-9a-f]){6}$/i.test(hex)) {
+      if (isFocused) setHSL(color.hex2hsl(hex))
       if (onChange) onChange(hex)
       if (onFinish) onFinish(hex)
     }

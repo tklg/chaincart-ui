@@ -64,7 +64,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = ({ storefronts }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id)
+    store: storefronts.find(x => x.id === props.id)
   }
 }
 

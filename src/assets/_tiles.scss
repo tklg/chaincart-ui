@@ -10,8 +10,11 @@
   grid-column-gap: 20px;
   grid-row-gap: 20px;
 
-  &.tiles-2 {
-    grid-template-columns: repeat(2, 1fr);
+  @include break-min('large') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include break('small') {
+    grid-template-columns: repeat(1, 1fr);
   }
   &.tiles-3 {
     grid-template-columns: repeat(3, 1fr);

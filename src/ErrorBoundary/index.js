@@ -12,7 +12,7 @@ export default class ErrorBoundary extends React.Component {
   static getDerivedStateFromError (error) {
     // Update state so the next render will show the fallback UI.
     return {
-      error: error
+      error: location.hostname === 'localhost' ? error : ''
     }
   }
 

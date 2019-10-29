@@ -5,25 +5,32 @@ import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import Modal from '../Modal'
 import { Checkbox } from '../Input'
-import { createProduct, fetchProducts, deleteProduct, saveProduct } from '../actions'
+import { doSuccess, createProduct, fetchProducts, deleteProduct, saveProduct } from '../actions'
 import './dashboard.scss'
 
 class Products extends Component {
   constructor () {
     super()
     this.renderProductRow = this.renderProductRow.bind(this)
+    this.onButtonInputClick = this.onButtonInputClick.bind(this)
   }
   componentDidMount () {
     if (!this.props.products.length) this.props.dispatch(fetchProducts(this.props.store.id))
+  }
+  onButtonInputClick (e) {
+    e.stopPropagation()
+    e.target.select()
+    document.execCommand('copy')
+    this.props.dispatch(doSuccess('Copied to clipboard'))
   }
   renderProductRow (product, i, a) {
     return (
       <tr key={i} onClick={e => this.props.dispatch(push(`/store/${this.props.store.id}/products/${product.hash}`))}>
         <td>{product.name}</td>
-        <td>{product.description}</td>
+        <td className='hide-small'>{product.description}</td>
         <td>{money.fmt(product.price)}</td>
         <td>{product.infinite ? 'Infinite' : product.available}</td>
-        <td>{product.sku}</td>
+        <td><input onClick={this.onButtonInputClick} defaultValue={`<button data-ccart-product="${product.hash}">Add to Cart</button>`} /></td>
       </tr>
     )
   }
@@ -35,20 +42,22 @@ class Products extends Component {
           <input placeholder='Search' />
           <Link className='btn' to='products/create'>Add product</Link>
         </nav>
-        <table cellSpacing='0' cellPadding='0' className='hover'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Available</th>
-              <th>SKU</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.products.map(this.renderProductRow)}
-          </tbody>
-        </table>
+        {this.props.products.length ? <div className='table-container'>
+          <table cellSpacing='0' cellPadding='0' className='hover'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th className='hide-small'>Description</th>
+                <th>Price</th>
+                <th>Available</th>
+                <th>Button code</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.products.map(this.renderProductRow)}
+            </tbody>
+          </table>
+        </div> : <div className='table-empty'>No products added</div>}
 
         <Route path='/store/*/products/create' children={({ match }) => {
           return (
@@ -145,10 +154,10 @@ const modalData = product => ({
   }]
 })
 
-const mapStateToProps = ({ storefronts }, props) => {
+const mapStateToProps = ({ storefronts, products }, props) => {
   return {
-    store: storefronts.stores.find(x => x.id === props.id),
-    products: storefronts.products[props.id] || []
+    store: storefronts.find(x => x.id === props.id),
+    products: products[props.id] || []
   }
 }
 

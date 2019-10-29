@@ -17,7 +17,7 @@
     margin: 28px 0 0 0;
     padding: 0 14px 0 28px;
     line-height: 50px;
-    height: 50px;
+    min-height: 50px;
 
     h1 {
       padding: 0;
@@ -31,6 +31,16 @@
     }
     .btn {
       margin: 5px 0;
+      text-align: center;
+    }
+    @include break('small') {
+      flex-direction: column;
+      margin: 14px 0;
+      padding: 0 28px;
+
+      input {
+        margin: 10px 0;
+      }
     }
   }
   .buttons {
@@ -80,6 +90,7 @@
       user-select: none;
       border: none;
       width: calc(100% - 56px);
+      max-width: 700px;
 
       header {
         height: 40px;
@@ -158,9 +169,10 @@
       border: 1px solid $black-4;
       padding: 6px;
       cursor: pointer;
+      margin: 0 14px 14px 0;
 
-      & ~ .cart-type-preview {
-        margin-left: 14px;
+      &:last-of-type {
+        margin-right: 0;
       }
 
       .window {
@@ -220,6 +232,27 @@
     }
     .radio:checked + .cart-type-preview {
       background: $accent-1;
+    }
+  }
+  &.activate {
+    h2 {
+      margin: 14px 28px 0 28px;
+    }
+    p {
+      margin: 14px 28px;
+    }
+    code {
+      padding: 0 2px;
+      border: 1px solid $accent-1-medium;
+      background: $accent-1-light;
+      border-radius: 4px;
+    }
+    .textarea {
+      border: 1px solid $black-4;
+      padding: 14px;
+      margin: 14px 28px 28px 28px;
+      white-space: pre;
+      font-size: 11pt;
     }
   }
 }

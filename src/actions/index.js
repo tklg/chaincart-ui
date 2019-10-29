@@ -17,7 +17,8 @@ const _actions = [
   'set_success',
   'set_storefronts',
   'add_storefront',
-  'create_storefront'
+  'create_storefront',
+  'delete_storefront'
 ]
 const actions = {
   ...products,
@@ -61,6 +62,30 @@ export const createStorefront = (data) => (dispatch, getState) => {
     dispatch({
       type: actions.add_storefront,
       data: res
+    })
+    dispatch(push('../../'))
+  })
+}
+
+export const editStorefront = (id, data) => (dispatch, getState) => {
+  workstate(dispatch, async () => {
+    await api.patch('/stores/' + id, data)
+    dispatch({
+      type: actions.edit_storefront,
+      data: {
+        key: id,
+        value: data
+      }
+    })
+  })
+}
+
+export const deleteStorefront = (id) => (dispatch, getState) => {
+  workstate(dispatch, async () => {
+    const res = await api.delete('/stores/' + id)
+    dispatch({
+      type: actions.delete_storefront,
+      data: res.storefrontID
     })
     dispatch(push('../../'))
   })

@@ -2,7 +2,7 @@ import { api } from '../util'
 import { workstate, doSuccess } from './'
 
 const _actions = [
-  'set_colors'
+  'edit_storefront'
 ]
 const actions = {}
 
@@ -13,7 +13,7 @@ export const saveCustomization = (storeID, data) => (dispatch, getState) => {
     })
 
     dispatch({
-      type: actions.set_colors,
+      type: actions.edit_storefront,
       data: {
         key: storeID,
         value: data
